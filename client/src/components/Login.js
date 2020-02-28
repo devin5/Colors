@@ -1,14 +1,35 @@
 import React from "react";
+import {useHistory} from 'react-router-dom'
+import { useLogin } from "../hooks/useLogin";
 
-const Login = () => {
-  // make a post request to retrieve a token from the api
-  // when you have handled the token, navigate to the BubblePage route
+export default function Login() {
+const history = useHistory()
+
+  const [form, change, submit] = useLogin(history);
+
+  
   return (
-    <>
-      <h1>Welcome to the Bubble App!</h1>
-      <p>Build a login page here</p>
-    </>
+    <form onSubmit={submit}>
+      {console.log("im form", form)}
+      <label htmlFor="password">Password</label>
+      <input
+        type="password"
+        placeholder="password"
+        name="password"
+        id="password"
+        value={form.password}
+        onChange={change}
+      />
+      <label htmlFor="username">Username</label>
+      <input
+        type="text"
+        placeholder="username"
+        name="username"
+        id="username"
+        value={form.username}
+        onChange={change}
+      />
+      <button type="submit">Submit</button>
+    </form>
   );
-};
-
-export default Login;
+}
